@@ -359,3 +359,12 @@
     anim = requestAnimationFrame(tick);
   }
 })();
+
+/* ===== Mobilno: traka "Pozovi / Zakaži" se prikazuje tek kad se hero napusti ===== */
+(() => {
+  const hero = document.querySelector('.hero');
+  if (!hero || !('IntersectionObserver' in window)) { document.body.classList.add('dock-on'); return; }
+  new IntersectionObserver(([e]) => {
+    document.body.classList.toggle('dock-on', !e.isIntersecting && e.boundingClientRect.top < 0);
+  }, { threshold: 0 }).observe(hero);
+})();
