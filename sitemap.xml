@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DOMEN JOŠ NIJE POZNAT: zameni __DOMEN__ pravim domenom (npr. https://www.tvojdomen.rs)
+     ili pokreni postavi-domen.ps1. Pošalji ovaj sitemap u Google Search Console. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>__DOMEN__/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

@@ -1,0 +1,6 @@
+# robots.txt – X Body Expert
+User-agent: *
+Allow: /
+
+# DOMEN JOŠ NIJE POZNAT: kada ga postaviš (postavi-domen.ps1), sledeća linija se aktivira.
+# Sitemap: __DOMEN__/sitemap.xml

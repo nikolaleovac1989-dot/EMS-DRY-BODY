@@ -94,7 +94,7 @@
      ===================================================== */
   const NS = 'http://www.w3.org/2000/svg';
   const W = 736, H = 1288, MIR = `translate(${W} 0) scale(-1 1)`;
-  const IMG = { front: 'img/mapa-spreda.jpg', back: 'img/mapa-pozadi.jpg' };
+  const IMG = { front: 'img/mapa-spreda.webp', back: 'img/mapa-pozadi.webp' };
   // Zone su zadate u pikselima slike (736×1288); mirror:true dodaje ogledalsku polovinu oko x=368.
   const MUSCLES = {
     front: [
@@ -293,72 +293,6 @@
   }
 })();
 
-
-/* ===== Hero: pre/posle klizač ===== */
-(() => {
-  const ba = document.getElementById('ba');
-  if (!ba) return;
-  const handle = document.getElementById('baHandle');
-  const sideBad = document.getElementById('sideBad'), sideGood = document.getElementById('sideGood');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let p = 50, dragging = false, anim = 0;
-
-  // ako slika ne postoji, prikaži uredan placeholder
-  ba.querySelectorAll('.ba__layer img').forEach(img => {
-    const miss = () => img.closest('.ba__layer').classList.add('no-img');
-    img.addEventListener('error', miss);
-    if (img.complete && !img.naturalWidth) miss();
-  });
-
-  function set(v) {
-    p = Math.max(0, Math.min(100, v));
-    ba.style.setProperty('--p', p.toFixed(2));
-    handle.setAttribute('aria-valuenow', Math.round(p));
-    handle.setAttribute('aria-valuetext', `Prikazano ${Math.round(p)}% pre, ${100 - Math.round(p)}% posle`);
-    // strana koja je više otkrivena dobija na isticanju
-    const l = p / 100, r = 1 - l;
-    sideBad.style.setProperty('--ol', (.3 + .7 * l).toFixed(2));
-    sideGood.style.setProperty('--or', (.3 + .7 * r).toFixed(2));
-    sideBad.style.transform = `scale(${(.94 + .12 * l).toFixed(3)})`;
-    sideGood.style.transform = `scale(${(.94 + .12 * r).toFixed(3)})`;
-  }
-  const fromEvent = e => { const b = ba.getBoundingClientRect(); return (e.clientX - b.left) / b.width * 100; };
-  const stopAnim = () => { cancelAnimationFrame(anim); anim = 0; };
-
-  ba.addEventListener('pointerdown', e => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    stopAnim(); dragging = true; ba.classList.add('is-drag');
-    ba.setPointerCapture(e.pointerId);
-    set(fromEvent(e));
-  });
-  ba.addEventListener('pointermove', e => { if (dragging) set(fromEvent(e)); });
-  const end = () => { dragging = false; ba.classList.remove('is-drag'); };
-  ba.addEventListener('pointerup', end);
-  ba.addEventListener('pointercancel', end);
-  ba.addEventListener('lostpointercapture', end);
-
-  handle.addEventListener('keydown', e => {
-    const step = e.shiftKey ? 15 : 5;
-    const map = { ArrowLeft: p - step, ArrowDown: p - step, ArrowRight: p + step, ArrowUp: p + step, Home: 0, End: 100 };
-    if (e.key in map) { e.preventDefault(); stopAnim(); set(map[e.key]); }
-  });
-
-  // uvodna animacija levo-desno
-  set(50);
-  if (!reduce) {
-    const keys = [50, 28, 72, 50], seg = 650;
-    const t0 = performance.now() + 700;
-    const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    const tick = now => {
-      if (now < t0) { anim = requestAnimationFrame(tick); return; }
-      const t = (now - t0) / seg, i = Math.floor(t);
-      if (i >= keys.length - 1) { set(50); anim = 0; return; }
-      set(keys[i] + (keys[i + 1] - keys[i]) * ease(t - i));
-      anim = requestAnimationFrame(tick);
-    };
-    anim = requestAnimationFrame(tick);
-  }
-})();
 
 /* ===== Mobilno: traka "Pozovi / Zakaži" se prikazuje tek kad se hero napusti ===== */
 (() => {
