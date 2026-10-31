@@ -564,7 +564,7 @@ a.ci:hover{border-color:var(--lime);transform:translateX(4px)}
   .hero .eyebrow{font-size:.62rem}
 }
 @media (max-width:760px){.plans{grid-template-columns:minmax(0,1fr)}.plan{padding:26px 20px 22px}.plan h3{font-size:1.25rem;white-space:normal;margin-top:18px}.pp__price b{font-size:1.08rem}}
-.member img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 18%;border-radius:var(--radius);border:1px solid var(--line);background:#0b100b;margin-bottom:16px}
+.member img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:var(--radius);border:1px solid var(--line);background:#0b100b;margin-bottom:16px}
 
 /* ===== Pristupačnost / SEO ===== */
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
